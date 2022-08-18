@@ -1,41 +1,36 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Playing with Interactions, Grafana logo says hi </title>
-        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-        <script type='text/javascript' src='js/static-panel.js'></script>
-    </head>
-    <body>
-    <a-scene
-        vr-mode-ui="enabled: false"
-        arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: true;'
-        renderer='antialias: true; alpha: true'
-        >
-            <a-assets>
-              <img id="boxTexture" src="/Grafana_logo.png">
-            </a-assets>
-            <a-camera gps-projected-camera rotation-reader></a-camera>
-            <a-box
-              gps-projected-entity-place='latitude: 52.34175520888742; longitude: 4.949106086397468'
-              src="#boxTexture"
-              animation__position="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; loop: true"
-              animation__mouseenter="property: scale; to: 2.3 2.3 2.3; dur: 300; startEvents: mouseenter"
-              animation__mouseleave="property: scale; to: 2 2 2; dur: 300; startEvents: mouseleave"></a-box>
-            <!-- <a-camera gps-projected-camera rotation-reader></a-camera> -->
-            <!-- <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-            <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-            <a-entity rotation="0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
-                    <a-sphere position="5 0 0" color="mediumseagreen"></a-sphere>
-            </a-entity> -->
-            <!-- <a-text value="Now Interactable" geometry="primitive:plane"></a-text> -->
-            <a-entity peakfinder>
-            </a-entity>
-            <!-- Using the asset management system. -->
-                      <!-- <a-image src="#boxTexture" position="5 0 0"></a-image> -->
-            <!-- <a-sphere gps-projected-entity-place='latitude: 52.34175520888742; longitude: 4.949106086397468' color="yellow" radius="5"  scale='10 10 10'></a-sphere> -->
-            <!-- <a-cylinder gps-projected-entity-place='latitude: 52.34175520888742-0.0004; longitude: 4.949106086397453' color="red" theta-start="50" theta-length="280" side="double" scale='10 10 10'></a-cylinder> --> -->
-    </a-scene>
-    </body>
-</html>
+  <head>
+    <title> Static panel with a marker </title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <!-- we import arjs version without NFT but with marker + location based support -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+    <!-- <script src="bundle.js"></script> -->
+    <script src="js/static-panel.js"></script>
 
+  </head>
+  <body> 
+   <a-scene
+    arjs
+    embedded
+    renderer="logarithmicDepthBuffer: true;"
+    vr-mode-ui="enabled: false"
+    gesture-detector
+    id="scene"
+  >
+    <a-marker
+      preset="hiro"
+      raycaster="objects: .clickable"
+      emitevents="true"
+      cursor="fuse: false; rayOrigin: mouse;"
+      id="markerA"
+    >
+      <a-entity gesture-handler static-panel></a-entity>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene> 
+  </body>
+</html>
 

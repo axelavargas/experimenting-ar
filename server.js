@@ -76,13 +76,14 @@ app.get('/screenshot', (req, res) => {
     },
   })
   .then(async (browser) => {
-    const url = "http://localhost:3000/d/3j4JGc6nz/16543-multi-ds-variables-test?orgId=1&viewPanel=22&kiosk";
+    const url2 = "http://localhost:3000/d/EJ8_d9jZk/panel-tests-stat?orgId=1&viewPanel=10&kiosk";
     const page = await browser.newPage();
-    await page.goto(url);
+    await page.goto(url2);
     await page.waitForSelector('.panel-content', {visible: true});
     const name =  uuidv4() + '.png';
-    await page.screenshot({ path: path.join(__dirname, 'assets', name) });
+    await page.screenshot({ path: path.join(__dirname, 'assets', 'panels', name) });
     await browser.close();
-    res.status(200).json({panel: name});
+    const panelName = `panels/${name}`;
+    res.status(200).json({panel: panelName});
   });
 })
